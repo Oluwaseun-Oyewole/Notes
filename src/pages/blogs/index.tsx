@@ -5,7 +5,7 @@ import { urlEncoder } from "../../utils";
 const Home = () => {
   return (
     <section className="max-w-[1200px] mx-auto">
-      <article className="flex items-center justify-center min-h-screen w-[95%] mx-auto ">
+      <article className="flex items-center justify-center min-h-screen w-[95%] mx-auto">
         <ul className="grid grid-cols-3 gap-4">
           {blogContent.map((blog) => {
             return (
@@ -21,11 +21,13 @@ const Home = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black opacity-10" />
-                  <div className="pt-2 relative z-10">
-                    <h1 className="text-blue-500 underline text-lg">
+                  <div className="pt-5 relative z-10">
+                    <h1 className="text-blue-500 underline text-sm">
                       {blog.title}
                     </h1>
-                    <p className="text-sm pt-2">{blog.details}</p>
+                    <p className="pt-2 text-xs leading-[1.2rem]">
+                      {blog.details}
+                    </p>
                   </div>
                   <p className="text-right text-xs">{blog.date}</p>
                 </Link>
