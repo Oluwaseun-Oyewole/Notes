@@ -6,4 +6,3 @@ export const lazyLoadRoutes = (page: string) =>
 export const Home = lazyLoadRoutes("blogs");
 export const Details = lazyLoadRoutes("blogDetails");
 export const SubDetails = lazyLoadRoutes("blogSubDetails");
-export const testing = lazyLoadRoutes("testing");
