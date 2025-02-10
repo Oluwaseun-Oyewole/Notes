@@ -10,7 +10,7 @@ export const ulVariant = {
     opacity: [0.5, 0.8, 1],
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.35,
+      staggerChildren: 0.25,
     },
   },
 };

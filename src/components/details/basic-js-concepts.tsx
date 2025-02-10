@@ -26,7 +26,7 @@ const BasicJsConcepts = () => {
             <Link to={`${urlEncoder(tab.label)}`}>
               <div className="lg:ml-20 text-black pt-1 lg:pt-0">
                 <p className="font-extrabold text-lg">{tab.label}</p>
-                <p className="pt-1 text-gray-500">Learning again</p>
+                <p className="pt-1 text-gray-500 pr-10">{tab?.description}</p>
               </div>
             </Link>
           </motion.li>
@@ -39,10 +39,16 @@ const BasicJsConcepts = () => {
 export default BasicJsConcepts;
 
 const javascriptForDevs = [
-  { label: "Promise in Javascript", title: "THOUGHT", date: "2024-05-10" },
-  // {
-  //   label: "Let's talk about Event Loop in Javascript",
-  //   title: "BLOG POST",
-  //   date: "2024-05-10",
-  // },
+  {
+    label: "Promises in Javascript",
+    title: "THOUGHT",
+    date: "2024-05-10",
+    description: "How does promises work in javascript",
+  },
+  {
+    label: "Javascript Event Loop",
+    title: "PERSONAL NOTE",
+    date: "2024-05-10",
+    description: "A personal note on Event loop, callback queue, call stack",
+  },
 ];

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Closure from "../../components/ui/closure";
-import EventLoop from "../../components/ui/eventLoop";
+import EventLoopsInJavascript from "../../components/ui/eventLoop";
 import JavascriptEngine from "../../components/ui/jsEngine";
 import JavascriptPromise from "../../components/ui/promise";
 
@@ -22,14 +22,14 @@ const SubDetails = () => {
   const params = useParams();
   function renderDetailsComponent() {
     switch (params?.sub_details) {
-      case "Promise-in-Javascript":
+      case "Promises-in-Javascript":
         return <JavascriptPromise />;
-      case "Let's-talk-about-Event-Loop-in-Javascript":
-        return <EventLoop />;
       case "Js-Engine-😡":
         return <JavascriptEngine />;
       case "Hmmm-Closure":
         return <Closure />;
+      case "Javascript-Event-Loop":
+        return <EventLoopsInJavascript />;
       default:
         return "details";
     }

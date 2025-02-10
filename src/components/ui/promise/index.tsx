@@ -9,7 +9,7 @@ import syncCode from "../../../assets/sync.jpeg";
 
 const styles = {
   bold: "font-extrabold",
-  font: "leading-8 text-sm font-medium min-h-[280px] lg:min-h-[250px] my-10 flex items-center flex-col justify-center lg:pt-10",
+  font: "leading-8 text-sm font-medium min-h-[280px] lg:min-h-[250px] my-10 flex items-center flex-col justify-center xl:pt-10",
   outerPT: "pt-10",
   innerPT: "pt-3",
   spacingY: "",
@@ -53,7 +53,7 @@ const JavascriptPromise = () => {
       <motion.div ref={ref}>
         <div className="max-w-[90%] md:max-w-[70%] lg:max-w-[75%] mx-auto">
           <div
-            className={`${styles.font} relative `}
+            className={`${styles.font} relative`}
             // style={{ background: rgbaColors[index!] }}
           >
             {/* {scrollValue >= 1 && scrollValue < 4 && (
@@ -71,21 +71,21 @@ const JavascriptPromise = () => {
   }
 
   return (
-    <div className="flex flex-col xl:flex-row Merriweather relative ">
+    <div className="flex flex-col xl:flex-row Merriweather relative bg-red-600">
       <aside className="w-full basis-1/2 fixed z-10 xl:sticky top-0 h-[350px] xl:h-screen overflow-y-scroll bg-gray-900 flex justify-center">
         <div className="flex flex-col">
           {currentImage?.one && (
             <img
               src={`${currentImage?.one}`}
               alt="code image"
-              className="w-[500px] h-[400px] object-contain"
+              className="w-[300px] h-[300px] lg:w-[500px] lg:h-[400px] object-contain"
             />
           )}
           {currentImage?.two && (
             <img
               src={`${currentImage.two}`}
               alt="code image"
-              className="w-[500px] h-[400px] object-contain"
+              className="w-[300px] lg:w-[500px] h-[300px] lg:h-[400px] object-contain"
             />
           )}
         </div>
@@ -93,7 +93,7 @@ const JavascriptPromise = () => {
         <div className="absolute top-3/4 left-1/3 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       </aside>
-      <div className="pt-[400px] xl:mt-0 lg:top-0 relative basis-1/2 w-full overflow-y-scroll bg-[#FAF9F5] text-black lg:pr-40 py-10 lg:py-50">
+      <div className="pt-[400px] xl:mt-0 xl:top-0 relative basis-1/2 w-full overflow-y-scroll bg-[#FAF9F5] text-black lg:pr-40 py-10 xl:py-50">
         <h1 className="max-w-[90%] md:max-w-[70%] lg:max-w-[75%] mx-auto text-3xl md:text-4xl font-extrabold">
           Javascript Promises
         </h1>
