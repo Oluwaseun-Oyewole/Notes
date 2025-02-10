@@ -11,25 +11,23 @@ const Home = () => {
             return (
               <li
                 key={blog.id}
-                className="border-2 border-gray-200 rounded-md min-h-[200px] p-4 relative"
+                className="border-2 border-gray-600 rounded-lg min-h-[400px] w-[420px] py-4 px-4 relative flex flex-col items-center justify-center"
               >
                 <Link to={urlEncoder(blog.title)}>
                   <img
                     src={blog.image}
                     alt={blog.title}
-                    className="w-full h-[200px] rounded-md"
+                    className="w-full h-[200px] rounded-md object-fit"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black opacity-10" />
                   <div className="pt-5 relative z-10">
-                    <h1 className="text-blue-500 underline text-sm">
-                      {blog.title}
-                    </h1>
-                    <p className="pt-2 text-xs leading-[1.2rem]">
+                    <h1 className="text-blue-500 underline">{blog.title}</h1>
+                    <p className="pt-2 text-sm leading-[1.22rem]">
                       {blog.details}
                     </p>
                   </div>
-                  <p className="text-right text-xs">{blog.date}</p>
+                  <p className="text-right text-sm">{blog.date}</p>
                 </Link>
               </li>
             );

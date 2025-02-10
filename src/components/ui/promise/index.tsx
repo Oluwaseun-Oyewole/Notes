@@ -82,8 +82,8 @@ const JavascriptPromise = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row Merriweather relative">
-      <aside className="w-full basis-1/2 fixed z-10 lg:sticky top-0 h-[350px] lg:h-screen overflow-y-scroll bg-gray-800 flex justify-center">
+    <div className="flex flex-col xl:flex-row Merriweather relative ">
+      <aside className="w-full basis-1/2 fixed z-10 xl:sticky top-0 h-[350px] xl:h-screen overflow-y-scroll bg-gray-900 flex justify-center">
         <div className="flex flex-col">
           {currentImage?.one && (
             <img
@@ -104,7 +104,7 @@ const JavascriptPromise = () => {
         <div className="absolute top-3/4 left-1/3 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       </aside>
-      <div className="top-[400px] lg:top-0 relative basis-1/2 w-full overflow-y-scroll bg-[#FAF9F5] text-black lg:pr-40 lg:py-50">
+      <div className="pt-[400px] xl:mt-0 lg:top-0 relative basis-1/2 w-full overflow-y-scroll bg-[#FAF9F5] text-black lg:pr-40 py-10 lg:py-50">
         <h1 className="max-w-[90%] md:max-w-[70%] lg:max-w-[75%] mx-auto text-3xl md:text-4xl font-extrabold">
           Javascript Promises
         </h1>
@@ -329,139 +329,57 @@ const promises = [
     id: 3,
     title: "Promise, Async and the microtask queue",
     imageSources: {
-      one: promiseResponse,
-      two: promiseReject,
+      one: syncCode,
+      two: asyncCode,
     },
     section: (
-      <div className="w-full">
-        <div>
-          <p>
-            After a promise has been invoked, to get the return value of the
-            resolve and reject executor functions, we need to chain a{" "}
-            <span className="font-bold">.then or .catch</span> method to the
-            promise.s
-          </p>
-        </div>
-        <div className="py-6">
-          <p>But what really happens behind the screen.</p>
-          <p>
-            Remember when a promise invoked, some objects were created, which
-            includes:{" "}
-            <span className="font-bold pt-2">
-              <span>[[PromiseFulfillReactions]]</span> and
-              <span> [[PromiseRejectReactions]]</span>
-            </span>
-          </p>
-          <p className="py-4">
-            <span className="font-bold pt-2">
-              [[PromiseFulfillReactions]] stores the functions (callbacks) that
-              should be executed when the Promise is fulfilled. When resolve()
-              is called on a Promise, the callback handler is executed.
-            </span>
-          </p>
-          <p className="py-4">
-            <span className="font-bold pt-2">
-              [[PromiseRejectReactions]] stores the functions (callbacks) that
-              should be executed when the Promise is rejected. When rejected()
-              is called on a Promise, the callback handler is executed.
-            </span>
-          </p>
-        </div>
-        <div className="pt-2 text-base leading-8 flex flex-col gap-3">
-          <h2 className="text-lg font-extrabold w-full pb-2"> Overview</h2>
-          <p>
-            1. The executor function passed to the promise constructor is
-            invoked immediately.
-          </p>
-          <p>
-            2. The executor function executes the async operation and a promise
-            object is created.
-          </p>
-          <p>
-            3. Once the The async operation is completed, the promise is either
-            resolved or rejected
-          </p>
-          <p>
-            4.The state of the promise moved from
-            <span className="font-bold pl-1">pending</span> to either
-            <span className="font-bold pl-1">fulfilled or rejected.</span>
-          </p>
-          <p>
-            5. Once the promise state has moved to either fulfilled or rejected,
-            the callback functions stored in the promise object are invoked. If
-            the promise was resolved, the{" "}
-            <span className="font-extrabold">then</span> callbacks are invoked.
-            If the promise was rejected, the{" "}
-            <span className="font-extrabold">catch</span> callbacks are invoked.
-          </p>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 3,
-    title: "",
-    section: (
       <div className={styles.spacingY}>
-        <p>
+        <p className="pt-4">
           First, let's understand the concept of
           <span className={styles.bold}> synchronous</span> and
           <span className={styles.bold}> asynchronous</span> Javascript.
         </p>
-        <p>
-          <span className={`${styles.bold} pr-1`}>
-            Javascript by design is single threaded.
-          </span>
-          (Always keep this in mind)
+        <p className="py-6">
+          <span className={styles.bold}>Synchronous</span> JS, Each line of code
+          must finish executing before the next line begins. This can lead to
+          blocking behavior, where the application becomes unresponsive if a
+          particular operation takes time to complete.
         </p>
+
+        <p className={"py-6"}>
+          <span className={styles.bold}>Asynchronous</span> JS, run code in
+          parallel. This means that while one operation is waiting (e.g., for
+          data from a server), other operations can continue executing. This is
+          non-blocking behavior.
+        </p>
+
+        <p className="pb-6">
+          <span className={`${styles.bold} pr-1`}>
+            Note: Javascript by design is single threaded. It's handle async
+            tasks off the main thread.
+          </span>
+        </p>
+
+        <div>
+          <h2 className="text-lg font-extrabold w-full pb-1">
+            Promise and Async
+          </h2>
+          <div>
+            <p>
+              When a promise is created the promise executor function is
+              executed synchronously. You can choose to perform either sync or
+              async operations inside the executor function.
+            </p>
+
+            <p className="py-6">
+              When the promise resolves, this handler receives the value of
+              [[PromiseResult]] as its argument, after which it's pushed to the
+              to the Microtask Queue. This is where the asynchronous part of
+              promises comes into play!
+            </p>
+          </div>
+        </div>
       </div>
-    ),
-  },
-
-  {
-    id: 4,
-    imageSources: {
-      one: syncCode,
-    },
-    section: (
-      <p className={""}>
-        "<span className={styles.bold}>Synchronous</span> JS, Each line of code
-        must finish executing before the next line begins. This can lead to
-        blocking behavior, where the application becomes unresponsive if a
-        particular operation takes time to complete."
-      </p>
-    ),
-  },
-
-  {
-    id: 5,
-    title: "",
-    imageSources: {
-      one: asyncCode,
-    },
-    section: (
-      <p className={""}>
-        "<span className={styles.bold}>Asynchronous</span> JS, run code in
-        parallel. This means that while one operation is waiting (e.g., for data
-        from a server), other operations can continue executing. This is
-        non-blocking behavior".
-      </p>
-    ),
-  },
-
-  {
-    id: 6,
-    title: "Promises States",
-    imageSources: {
-      one: asyncCode,
-    },
-    section: (
-      <p className={""}>
-        "<span className={styles.bold}>Asynchronous</span> JS, run code in
-        parallel. This means that while one operation is waiting (e.g., for data
-        from a server), other operations can continue executing. This is
-        non-blocking behavior".
-      </p>
     ),
   },
 ];
