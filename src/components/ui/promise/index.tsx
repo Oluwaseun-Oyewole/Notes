@@ -15,17 +15,6 @@ const styles = {
   spacingY: "",
 };
 
-const rgbaColors: string[] = [
-  "rgba(255, 99, 132, 0.8)", // Light Red
-  "rgba(54, 162, 235, 0.7)", // Light Blue
-  "rgba(255, 206, 86, 0.9)", // Yellow
-  "rgba(75, 192, 192, 0.6)", // Teal
-  "rgba(153, 102, 255, 0.8)", // Purple
-  "rgba(255, 159, 64, 0.7)", // Orange
-  "rgba(99, 255, 132, 0.5)", // Light Green
-  "rgba(201, 203, 207, 0.9)", // Gray
-];
-
 const JavascriptPromise = () => {
   const [currentImage, setCurrentImage] = useState<{
     one: ReactNode;
