@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import JavascriptIndex from "../components";
 import Layout from "../layout";
 import ErrorPage from "../pages/error";
 import { appRoutes } from "./app.routes";
@@ -11,6 +12,7 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [...appRoutes()],
   },
+  { path: "/js", element: <JavascriptIndex /> },
 ]);
 
 export default routes;
