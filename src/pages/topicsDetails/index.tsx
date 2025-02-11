@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import BasicJsConcepts from "../../components/details/basic-js-concepts";
 
-const Details = () => {
+const TopicsDetails = () => {
   const params = useParams();
+  console.log(params);
 
   function renderDetailsComponent() {
     switch (params?.detail) {
@@ -16,4 +17,4 @@ const Details = () => {
   return <div>{renderDetailsComponent()}</div>;
 };
 
-export default Details;
+export default TopicsDetails;

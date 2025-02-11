@@ -1,5 +1,5 @@
 export const enum Routes {
   base = "/",
-  details = "/:detail",
-  subDetails = "/:details/:sub_details",
+  topicsDetails = "/:detail",
+  subTopics = "/:details/:sub_details",
 }
