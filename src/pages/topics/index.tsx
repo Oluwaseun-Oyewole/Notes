@@ -6,12 +6,12 @@ const Home = () => {
   return (
     <section className="max-w-[1200px] mx-auto">
       <article className="flex items-center justify-center min-h-screen w-[95%] mx-auto">
-        <ul className="grid grid-cols-3 gap-4">
+        <ul className="grid md:grid-cols-3 gap-4">
           {blogContent.map((blog) => {
             return (
               <li
                 key={blog.id}
-                className="border-2 border-gray-600 rounded-lg min-h-[400px] w-[420px] py-4 px-4 relative flex flex-col items-center justify-center"
+                className="md:border-2 border-gray-600 rounded-lg min-h-[400px] md:w-[420px] py-4 px-4 relative flex flex-col items-center justify-center"
               >
                 <Link to={urlEncoder(blog.title)}>
                   <img
