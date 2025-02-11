@@ -7,7 +7,6 @@ const EventLoopsInJavascript = () => {
   function EventLoop({
     section,
     title,
-    imageSources,
   }: {
     section: ReactNode;
     title?: string;
@@ -21,11 +20,11 @@ const EventLoopsInJavascript = () => {
         <motion.div
           className="relative"
           ref={ref}
-          // style={{
-          //   opacity: isInView ? 1 : 0,
-          //   transform: isInView ? "translateX(0px)" : "translateX(-20px)",
-          //   transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
-          // }}
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateX(0px)" : "translateX(-20px)",
+            transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+          }}
         >
           <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
             {title}
