@@ -1,11 +1,269 @@
+import { motion, useInView } from "framer-motion";
+import { ReactNode, useRef } from "react";
+import geolocation from "../../../assets/geoLocation.jpeg";
+import SyncPromise from "../../../assets/sycn-promise.jpeg";
+
 const EventLoopsInJavascript = () => {
+  function EventLoop({
+    section,
+    title,
+    imageSources,
+  }: {
+    section: ReactNode;
+    title?: string;
+    imageSources?: { one?: ReactNode; two?: ReactNode };
+  }) {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const isInView = useInView(ref, { once: false });
+
+    return (
+      <div>
+        <motion.div
+          className="relative"
+          ref={ref}
+          // style={{
+          //   opacity: isInView ? 1 : 0,
+          //   transform: isInView ? "translateX(0px)" : "translateX(-20px)",
+          //   transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+          // }}
+        >
+          <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
+            {title}
+          </h1>
+          <div className="lg:pr-[350px] text-sm md:text-base"> {section}</div>
+        </motion.div>
+      </div>
+    );
+  }
   return (
-    <div className="flex flex-col xl:flex-row Merriweather relative ">
-      <section className="max-w-[90%] md:max-w-[70%] lg:max-w-[75%] mx-auto">
-        Event loops in Javascript
+    <div className="Merriweather relative">
+      <div className="absolute top-0 lef-0 w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-0  w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
+      <section className="max-w-[1240px] mx-auto py-20 px-10 md:px-20">
+        <h1 className="text-xl md:text-2xl font-extrabold leading-8">
+          Javascript-event-loop, Call-stack, Callback-queue.
+        </h1>
+        <div className="relative w-full">
+          {events.map((event) => (
+            <EventLoop
+              key={event.id}
+              section={event.section}
+              title={event.title}
+              imageSources={{
+                one: event?.imageSources?.one,
+                two: event?.imageSources?.two,
+              }}
+            />
+          ))}
+        </div>
       </section>
     </div>
   );
 };
 
 export default EventLoopsInJavascript;
+
+const events = [
+  {
+    id: 1,
+    title: "",
+    imageSources: { one: "", two: "" },
+    section: (
+      <div>
+        <p className="text-sm font-bold">
+          Note: Javascript by design is single threaded (single call stack).
+        </p>
+        <div className="py-4 text-sm">
+          <p className="py-2">
+            This simply means it can only execute one task at a time, and while
+            doing that, it blocks other tasks from running.
+          </p>
+          <p className="leading-8">
+            JS on the client runs on the browser main thread and while executing
+            and because it's single threaded it freezes up the UI until
+            execution completes 🥶.
+          </p>
+          <p className="py-2">
+            For example, running a time consuming computation (like the one
+            below) will block the main thread until execution completes.
+          </p>
+        </div>
+        <div className="py-4">
+          <img
+            src={SyncPromise}
+            alt="sync image"
+            className="w-[350px] object-contain rounded-lg"
+          />
+        </div>
+
+        <div className="py-6">
+          <p className="">
+            So the question is, If Javascript is single threaded, how does it
+            handle asynchronous operations ?
+          </p>
+          <p>A simple answer is the Event Loop.</p>
+        </div>
+
+        <div className="leading-8">
+          <p>
+            Note Whenever any Javascript program is run, a global execution
+            context is created which get pushed to the call stack.
+          </p>
+          <div className="py-20">
+            <h2 className="text-lg md:text-2xl font-extrabold w-full pb-5">
+              Call Stack
+            </h2>
+            <p>
+              It manages the execution of our javascript programs. When we
+              invoke a function, an execution context is created and pushed into
+              the call stack. Because Stack is LIFO(Last In First Out)
+              structure, it's execute the topmost function and after execution
+              it's execution context is popped off the stack.
+            </p>
+            <p className="py-10">
+              So in simple terms,when a function is invoked, it's gets pushed
+              into the call stack, inside the stack, the function is executed
+              line by line and after execution, it's gets popped out of the
+              stack.
+            </p>
+            <p>
+              Because JS is single threaded, once a function is pushed into the
+              call stack, no other function can be pushed into the stack unless
+              the current function has finished execution and it's popped off
+              the stack.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    id: 2,
+    title: "Web API",
+    imageSources: { one: "", two: "" },
+    section: (
+      <div>
+        <div className="pt-5 pb-20 leading-8">
+          <div>
+            <p>
+              So outside the call stack, we have our beautiful world of the
+              BROWSER.I personally feel that the browser is one of the greatest
+              piece of technological inventions. Whether you are running on
+              chrome, or safari, edge, firebox, you can't dispute the super
+              power of the BROWSER.
+            </p>
+            <p className="py-8">
+              The browser contains the JavaScript engine and Web APIs. Different
+              browser uses different engines,from chrome and edge using v8, to
+              firefox using SpiderMonkey and safari using Nitro.
+            </p>
+            <p>
+              Enough of the browser glaze, what are web API?. Web API are
+              browser-provided APIs that handle asynchronous operations like
+              network requests, timers, and DOM events and so on.
+            </p>
+            <p className="py-8">
+              Web APIs essentially act as a bridge between the JavaScript
+              runtime and the browser features, allowing us to access
+              information and use features beyond JavaScript's own capabilities
+            </p>
+          </div>
+          <div>
+            <p className="italic">"Web API and async tasks"</p>
+            <p className="pt-4">
+              Some web APIs (fetch, setTimeout,etc) can allow us to handle async
+              operations by offloading the longer running task to the browser
+              environment without waiting for it completion, and also set up
+              handlers to handle the eventual completion of this task.
+            </p>
+            <p className="pt-3">
+              After the async task has been initiaited, it's execution context
+              is popped off the call stack. Web APIs that performs async tasks
+              either use a callback-based or promise-based approach.
+            </p>
+            <div>
+              <img
+                src={geolocation}
+                alt=""
+                className=" py-8 w-[500px] object-contain rounded-lg"
+              />
+              <div>
+                <p>
+                  Take a look at the example we have above. We are using the
+                  geolocation API which is a web API provided by the browser.
+                </p>
+                <p className="py-8">
+                  when this function is invoked, a new execution context is
+                  created and pushed into the call stack. The call stack now
+                  delegates this operation to the browser's geolocation API. The
+                  function of the call stack is just to "register" its callbacks
+                  to the Web API, which then offloads the operation to the
+                  browser. The function is then popped off the Call Stack; it's
+                  now the browser's responsibility and now our call stack can
+                  handle other tasks.
+                </p>
+                <p>
+                  the browser prompts the user to give the website access to
+                  their location. Once the user accepts, our website can now get
+                  access to their location. The API now receives the data from
+                  the browser, and uses the successCallback to handle the
+                  result.
+                </p>
+                <p className="py-8">
+                  However, the successCallback can't simply get pushed onto the
+                  Call Stack, as doing so could potentially disrupt an already
+                  running task.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    id: 3,
+    title: "Task Queue (Callback Queue)",
+    imageSources: { one: "", two: "" },
+    section: (
+      <div>
+        <div className="pt-5 pb-20 leading-8">
+          <div>
+            <p>
+              Holds callbacks from completed asynchronous operations. For
+              instance this successCallback is been pushed into the task queue.
+              The callback queue is a FIFO data structure that holds the
+              callbacks and event handlers of Web API. To simply put, when an
+              async task finish executing, the callback is pushed into the task
+              queue.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    id: 4,
+    title: "MicroTask Queue (Callback Queue)",
+    imageSources: { one: "", two: "" },
+    section: (
+      <div>
+        <div className="pt-5 pb-20 leading-8">
+          <div>
+            <p>
+              Holds callbacks from completed asynchronous operations. For
+              instance this successCallback is been pushed into the task queue.
+              The callback queue is a FIFO data structure that holds the
+              callbacks and event handlers of Web API. To simply put, when an
+              async task finish executing, the callback is pushed into the task
+              queue.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+];

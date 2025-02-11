@@ -39,7 +39,7 @@ const SubDetails = () => {
       {renderDetailsComponent()}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-5 right-5 px-2 py-1 text-sm rounded-full text-gray-800 bg-gray-200 shadow-lg transition-opacity duration-300 ${
+        className={`fixed bottom-5 right-5 px-2 py-1 w-[28px] text-sm rounded-full text-gray-800 bg-gray-200 shadow-lg flex items-center justify-center transition-opacity duration-300 ${
           scrollable ? "opacity-100" : "opacity-0"
         }`}
       >
