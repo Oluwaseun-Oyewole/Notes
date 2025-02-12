@@ -15,13 +15,13 @@ const EventLoopsInJavascript = () => {
     imageSources?: { one?: ReactNode; two?: ReactNode };
   }) {
     const ref = useRef<HTMLDivElement | null>(null);
-    const isInView = useInView(ref, { once: false });
+    const isInView = useInView(ref, { once: true });
 
     useEffect(() => {
       function handleScroll() {
         if (ref.current) {
           const { top } = ref.current.getBoundingClientRect();
-          if (top <= 0) {
+          if (top <= 70) {
             setCurrentText(title!);
           }
         }
@@ -38,13 +38,15 @@ const EventLoopsInJavascript = () => {
     }, [isScrollable]);
 
     return (
-      <div className="relative py-16">
+      <div className="relative py-8 lg:py-16">
         <motion.div
           ref={ref}
-          style={{
-            transform: isInView ? "translateX(0px)" : "translateX(-20px)",
-            transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
-          }}
+          // style={{
+          //   opacity: isInView ? "1" : "0",
+          //   transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+          // }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
         >
           <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
             {title}
@@ -65,7 +67,7 @@ const EventLoopsInJavascript = () => {
             isScrollable && "py-10 sticky top-0 left-0 bg-gray-900 z-10"
           }`}
         >
-          <h1 className="text-xl md:text-[30px] font-extrabold leading-14">
+          <h1 className="text-xl md:text-[30px] font-extrabold leading-10 lg:leading-14">
             {currentText}
           </h1>
         </div>
@@ -75,10 +77,6 @@ const EventLoopsInJavascript = () => {
               key={event.id}
               section={event.section}
               title={event.title}
-              imageSources={{
-                one: event?.imageSources?.one,
-                two: event?.imageSources?.two,
-              }}
             />
           ))}
         </div>
@@ -93,7 +91,6 @@ const events = [
   {
     id: 1,
     title: "",
-    imageSources: { one: "", two: "" },
     section: (
       <div className="leading-8">
         <p className="font-bold">
@@ -168,7 +165,6 @@ const events = [
   {
     id: 3,
     title: "Web API",
-    imageSources: { one: "", two: "" },
     section: (
       <div>
         <div className=" leading-8">
@@ -253,7 +249,6 @@ const events = [
   {
     id: 4,
     title: "Task Queue (Callback Queue)",
-    imageSources: { one: "", two: "" },
     section: (
       <div>
         <div className=" leading-8">
@@ -261,10 +256,20 @@ const events = [
             <p>
               Holds callbacks from completed asynchronous operations. For
               instance this successCallback is been pushed into the task queue.
-              The callback queue is a FIFO data structure that holds the
+              The Callback Queue is a FIFO data structure that holds the
               callbacks and event handlers of Web API. To simply put, when an
               async task finish executing, the callback is pushed into the task
-              queue.
+              queue which will be picked up by the Event Loop and pushed into
+              the Call Stack for execution.
+            </p>
+            <p className="pt-6">
+              Let's take a look a setTimeout. The setTimeout execution context
+              is created and added to the call stack. The JS engines pushes this
+              execution to the web API and it's popped off the Call Stack. The
+              Web API process this action and returns a callback function. The
+              callback is sent to the Callback Queue. When the Call Stack is
+              empty the Event Loop push the callback to the Call Stack for
+              execution.
             </p>
           </div>
         </div>
@@ -274,19 +279,86 @@ const events = [
 
   {
     id: 5,
-    title: "MicroTask Queue (Callback Queue)",
-    imageSources: { one: "", two: "" },
+    title: "MicroTask Queue",
     section: (
       <div>
         <div className="leading-8">
           <div>
             <p>
-              Holds callbacks from completed asynchronous operations. For
-              instance this successCallback is been pushed into the task queue.
-              The callback queue is a FIFO data structure that holds the
-              callbacks and event handlers of Web API. To simply put, when an
-              async task finish executing, the callback is pushed into the task
-              queue.
+              JavaScript runtime gives higher priority to tasks in the micro
+              queue than the callback queue. Web APIs like fetch,
+              mutationObserver, queueMicrotask return a promise object which
+              contain [[promiseState]], [[promiseResult]] and other records. The
+              [[promiseResult]] which contains the data are sent to the micro
+              task queue to be handled by promise handler (.then, .catch, async
+              await).
+            </p>
+
+            <p className="py-6">
+              To simply put, when the Call Stack is empty, the Event Loop pushes
+              all the Micro Tasks [[promiseResults]] to the Call Stack for
+              execution before attending to the tasks in the Callback Queue.
+            </p>
+
+            <p className="py-6">
+              Note:Microtasks can also schedule other microtasks! This could
+              lead to infinite microtask loop, causing a starvation and delay of
+              the Callback Queue indefinitely and freezing the rest of the
+              program. So be careful!.
+            </p>
+
+            <p>
+              Such a scenario cannot (!) happen on the Task Queue. The Event
+              Loop processes tasks on the Task Queue one by one, then it "starts
+              over" by checking the Microtask Queue.
+            </p>
+            <p className="py-6">
+              Let's take a look at a popular promise-based API called fetch.
+              When we invoke fetch, its execution context is created and added
+              to the Call Stack. Calling fetch creates a Promise Object in
+              memory which include [[promiseState]] "pending" and
+              [[promiseResult]] "undefined" by default.
+            </p>
+            <p>
+              {" "}
+              After initiating the network request, the fetch function call is
+              popped off the Call Stack. The JS engine now encounters the
+              chained then/catch handler. When the server finally returns the
+              data, the [[PromiseState]] is set to "fulfilled" , the
+              [[PromiseResult]] is set to the Response object.
+            </p>
+            <p className="py-6">
+              As the promise resolves, the PromiseReaction is pushed onto the
+              Microtask Queue. When the Call Stack is empty, the Event Loop
+              moves the handler callback from the Microtask Queue onto the the
+              Call Stack, where it's executed, and eventually popped off the
+              call stack.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    id: 6,
+    title: "Event Loop",
+    section: (
+      <div>
+        <div className="leading-8">
+          <div>
+            <p>
+              If you recall, Js is a synchronous single threaded language. So if
+              JS is synchronous,then how does it handle async or non-blocking
+              task. The answer is Event Loop.The event loop is a mechanism that
+              allows JavaScript to handle multiple tasks concurrently, without
+              blocking or waiting for each task to complete.
+            </p>
+            <p className="py-6">
+              We can say Event Loop is a task manager that constantly checks if
+              the Call Stack is empty and when it's empty, its add task either
+              from the Callback Queue or Microtask Queue to the Call Stack where
+              the callback is executed.
             </p>
           </div>
         </div>
