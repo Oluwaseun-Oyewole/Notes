@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import geolocation from "../../../assets/geoLocation.jpeg";
 import SyncPromise from "../../../assets/sycn-promise.jpeg";
@@ -15,7 +15,6 @@ const EventLoopsInJavascript = () => {
     imageSources?: { one?: ReactNode; two?: ReactNode };
   }) {
     const ref = useRef<HTMLDivElement | null>(null);
-    const isInView = useInView(ref, { once: true });
 
     useEffect(() => {
       function handleScroll() {
@@ -41,10 +40,6 @@ const EventLoopsInJavascript = () => {
       <div className="relative py-8 lg:py-16">
         <motion.div
           ref={ref}
-          // style={{
-          //   opacity: isInView ? "1" : "0",
-          //   transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
-          // }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
@@ -94,7 +89,7 @@ const events = [
     section: (
       <div className="leading-8">
         <p className="font-bold">
-          Note: Javascript by design is single threaded (single call stack).
+          Note: Javascript by design is single threaded (a single call stack).
         </p>
         <div className="py-4">
           <p className="py-2">
@@ -102,13 +97,14 @@ const events = [
             doing that, it blocks other tasks from running.
           </p>
           <p className="leading-8">
-            JS on the client runs on the browser main thread and while executing
-            and because it's single threaded it freezes up the UI until
-            execution completes 🥶.
+            JS on the client runs on the browser main thread and because it's
+            single threaded it freezes up the entire UI until it's execution
+            completes.
           </p>
           <p className="py-2">
             For example, running a time consuming computation (like the one
-            below) will block the main thread until execution completes.
+            below) will block the main thread and thus stops other tasks for
+            executing.
           </p>
         </div>
         <div className="py-4">
@@ -124,13 +120,12 @@ const events = [
             So the question is, If Javascript is single threaded, how does it
             handle asynchronous operations ?
           </p>
-          <p>A simple answer is the Event Loop.</p>
+          <p className="pt-2 font-bold">A simple answer is the Event Loop.</p>
         </div>
 
         <div className="leading-8">
           <p>
-            Note Whenever any Javascript program is run, a global execution
-            context is created which get pushed to the call stack.
+            Let quickly explain the fundamental concepts surrounding Event Loop.
           </p>
         </div>
       </div>
@@ -141,22 +136,24 @@ const events = [
     title: "Call Stack",
     section: (
       <div className="leading-8">
+        <p className="pb-5">
+          Whenever a Javascript program runs, a global execution context is
+          created which get pushed to the call stack.
+        </p>
         <p>
-          It manages the execution of our javascript programs. When we invoke a
-          function, an execution context is created and pushed into the call
-          stack. Because Stack is LIFO(Last In First Out) structure, it's
-          execute the topmost function and after execution it's execution
+          The Call Stack manages the execution of our JavaScript programs. When
+          we invoke a function, an execution context is created and pushed into
+          the Call Stack. Because Stack is a LIFO (Last In First Out) structure,
+          it's execute the topmost function and after execution it's execution
           context is popped off the stack.
         </p>
-        <p className="py-10">
+        <p className="pt-10">
           So in simple terms,when a function is invoked, it's gets pushed into
           the call stack, inside the stack, the function is executed line by
-          line and after execution, it's gets popped out of the stack.
-        </p>
-        <p>
-          Because JS is single threaded, once a function is pushed into the call
-          stack, no other function can be pushed into the stack unless the
-          current function has finished execution and it's popped off the stack.
+          line and after execution, it's gets popped out of the stack. JS is
+          single threaded, so only one function is pushed into the Call Stack at
+          a time until the current function has finished execution and it's
+          popped off the stack.
         </p>
       </div>
     ),
@@ -170,8 +167,8 @@ const events = [
         <div className=" leading-8">
           <div>
             <p>
-              So outside the call stack, we have our beautiful world of the
-              BROWSER.I personally feel that the browser is one of the greatest
+              So outside the JS runtime, we have our beautiful world of the
+              BROWSER. I personally feel that the browser is one of the greatest
               piece of technological inventions. Whether you are running on
               chrome, or safari, edge, firebox, you can't dispute the super
               power of the BROWSER.
@@ -361,6 +358,48 @@ const events = [
               the callback is executed.
             </p>
           </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 7,
+    title: "Quick Recap",
+    section: (
+      <div>
+        <div className="leading-8">
+          <ul>
+            <li>
+              JS is single threaded which means it can only run one task at a
+              time
+            </li>
+            <li className="py-6">
+              Web APIs are used to interact with features provided by the
+              browser. Some of these APIs allow us to initiate async tasks in
+              the background.{" "}
+            </li>
+            <li>
+              when a function called that initiates the async task is added to
+              the Call Stack, but that is just to hand it off to the browser.
+              The actual async task is handled in the background, and does not
+              remain on the Call Stack.
+            </li>
+            <li>
+              The Task Queue is used by callback-based Web APIs to enqueue the
+              callbacks once the asynchronous task has completed.
+            </li>
+            <li>
+              The Microtask Queue is used by Promise handlers, async function
+              bodies following await. When the Call Stack is empty,
+            </li>
+            <li>
+              the Event Loop first moves tasks from the Microtask Queue until
+              this queue is completely empty. Then, it moves on to the Task
+              Queue, where it moves the first available task to the Call Stack.
+              After handling the first available task, it "starts over" by again
+              checking the Microtask Queue.
+            </li>
+          </ul>
         </div>
       </div>
     ),
