@@ -42,13 +42,19 @@ const javascriptForDevs = [
   {
     label: "Promises in Javascript",
     title: "THOUGHT",
-    date: "2024-05-10",
+    date: "2025-02-8",
     description: "How does promises work in javascript",
   },
   {
-    label: "Javascript Event Loop",
+    label: "JavaScript Event Loop",
     title: "PERSONAL NOTE",
-    date: "2024-05-10",
+    date: "2025-02-12",
     description: "A personal note on Event loop, callback queue, call stack",
+  },
+  {
+    label: "JavaScript Engine",
+    title: "PERSONAL NOTE",
+    date: "2025-02-14",
+    description: "Understanding JS Engine and the browser ",
   },
 ];

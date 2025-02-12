@@ -20,9 +20,7 @@ const EventLoopsInJavascript = () => {
       function handleScroll() {
         if (ref.current) {
           const { top } = ref.current.getBoundingClientRect();
-          if (top <= 70) {
-            setCurrentText(title!);
-          }
+          if (top <= 70) setCurrentText(title!);
         }
         if (window.scrollY > 200) setIsScrollable(true);
         else setIsScrollable(false);
@@ -56,15 +54,19 @@ const EventLoopsInJavascript = () => {
       <div className="absolute top-0 lef-0 w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-0 left-0  w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed top-[450px] right-0  w-2/4 h-[150px] bg-white opacity-[8%] rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed top-[450px] right-0  w-2/4 h-[150px] bg-white opacity-[8%] rounded-full blur-3xl pointer-events-none" />
       <section className="max-w-[1240px] mx-auto pt-10 px-10 md:px-20">
         <div
           className={`${
-            isScrollable && "py-10 sticky top-0 left-0 bg-gray-900 z-10"
+            isScrollable && "py-6 md:py-10 sticky top-0 left-0 bg-gray-900 z-10"
           }`}
         >
-          <h1 className="text-xl md:text-[30px] font-extrabold leading-10 lg:leading-14">
+          <h1 className="text-lg md:text-[30px] font-extrabold leading-10">
             {currentText}
           </h1>
+          <small className="pt-1">
+            A quick note from my readings on event loop
+          </small>
         </div>
         <div className="relative w-full">
           {events.map((event) => (
@@ -364,7 +366,7 @@ const events = [
   },
   {
     id: 7,
-    title: "Quick Recap",
+    title: "Quick recap",
     section: (
       <div>
         <div className="leading-8">
@@ -374,30 +376,77 @@ const events = [
               time
             </li>
             <li className="py-6">
-              Web APIs are used to interact with features provided by the
-              browser. Some of these APIs allow us to initiate async tasks in
+              Web APIs are used to interact with browser features. Some of these
+              APIs like fetch, setTimeout, allow us to initiate async tasks in
               the background.{" "}
             </li>
             <li>
-              when a function called that initiates the async task is added to
-              the Call Stack, but that is just to hand it off to the browser.
-              The actual async task is handled in the background, and does not
-              remain on the Call Stack.
+              when a async function is invoked, it get pushed to the Call Stack,
+              Call Stack is to hand it over to the browser where the async
+              function execution occur in the background. The actual async task
+              is popped off the task
+            </li>
+            <li className="py-6">
+              The Callback Queue is used by callback-based Web APIs to enqueue
+              the callbacks once the asynchronous task has completed.
             </li>
             <li>
-              The Task Queue is used by callback-based Web APIs to enqueue the
-              callbacks once the asynchronous task has completed.
+              The Microtask Queue is used by Promise handlers to get data from
+              the promise based result object.
+            </li>
+            <li className="py-6">
+              When the Call Stack is empty, the Event Loop first moves tasks
+              from the Microtask Queue until this queue is completely empty.
+              Then, it moves on to the Task Queue, where it moves the first
+              available task to the Call Stack. After handling the first
+              available task, it "starts over" by again checking the Microtask
+              Queue.
+            </li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    id: 7,
+    title: "Learn more",
+    section: (
+      <div>
+        <div className="leading-8">
+          <p>
+            If you like to learn more about event loop extensively, check out
+            this resources
+          </p>
+          <ul className="py-8 text-sm text-blue-300 leading-8">
+            <li>
+              Video: <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ"></a>
+              What the heck is the event loop anyway? | Philip Roberts | JSConf
+              EU
             </li>
             <li>
-              The Microtask Queue is used by Promise handlers, async function
-              bodies following await. When the Call Stack is empty,
+              Video:{" "}
+              <a href="https://www.youtube.com/watch?v=okkHnAo8GmE&t=16s">
+                JavaScript Event Loop -- Visualized!
+              </a>
             </li>
             <li>
-              the Event Loop first moves tasks from the Microtask Queue until
-              this queue is completely empty. Then, it moves on to the Task
-              Queue, where it moves the first available task to the Call Stack.
-              After handling the first available task, it "starts over" by again
-              checking the Microtask Queue.
+              Video:{" "}
+              <a href="https://www.youtube.com/watch?v=8zKuNo4ay8E">
+                Asynchronous JavaScript & EVENT LOOP from scratch
+              </a>
+            </li>
+            <li>
+              Blog:{" "}
+              <a href="https://www.lydiahallie.com/blog/event-loop">
+                JavaScript Visualized: Event Loop, Web APIs, (Micro) task Queue.
+                (Must read!!)
+              </a>
+            </li>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop">
+                The event loop
+              </a>
             </li>
           </ul>
         </div>
