@@ -409,7 +409,7 @@ const events = [
   },
 
   {
-    id: 7,
+    id: 8,
     title: "Learn more",
     section: (
       <div>

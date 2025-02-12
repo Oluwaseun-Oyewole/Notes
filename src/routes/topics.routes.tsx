@@ -2,7 +2,7 @@ import { Navigate, RouteObject } from "react-router-dom";
 import { SubTopics, Topics, TopicsDetails } from "./lazy";
 import { Routes } from "./routes";
 
-export const appRoutes = () => {
+export const topicRoutes = () => {
   return [
     {
       path: Routes.base,

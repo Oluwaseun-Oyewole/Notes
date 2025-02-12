@@ -7,12 +7,7 @@ const BasicJsConcepts = () => {
   return (
     <div className="lg:flex Merriweather">
       <aside className="hidden lg:block lg:bg-gray-900 lg:basis-1/2 min-h-screen"></aside>
-      <motion.ul
-        className="px-8 md:px-20 lg:px-0 w-full lg:basis-1/2 bg-[#FAF9F5] relative py-20 lg:py-70 min-h-screen"
-        // variants={ulVariant}
-        // initial="hidden"
-        // animate="show"
-      >
+      <motion.ul className="px-8 md:px-20 lg:px-0 w-full lg:basis-1/2 bg-[#FAF9F5] relative py-20 lg:py-70 h-screen">
         {javascriptForDevs.map((tab) => (
           <motion.li
             key={tab.label}
