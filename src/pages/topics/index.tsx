@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { blogContent } from "../../constants";
+import { topics } from "../../constants";
 import { urlEncoder } from "../../utils";
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
     <section className="max-w-[1200px] mx-auto">
       <article className="flex items-center justify-center min-h-screen w-[95%] mx-auto">
         <ul className="grid md:grid-cols-3 gap-4">
-          {blogContent.map((blog) => {
+          {topics.map((blog) => {
             return (
               <li
                 key={blog.id}

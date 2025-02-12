@@ -1,9 +1,11 @@
 import { motion, useInView } from "framer-motion";
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import geolocation from "../../../assets/geoLocation.jpeg";
 import SyncPromise from "../../../assets/sycn-promise.jpeg";
 
 const EventLoopsInJavascript = () => {
+  const [currentText, setCurrentText] = useState("");
+  const [isScrollable, setIsScrollable] = useState(false);
   function EventLoop({
     section,
     title,
@@ -15,13 +17,31 @@ const EventLoopsInJavascript = () => {
     const ref = useRef<HTMLDivElement | null>(null);
     const isInView = useInView(ref, { once: false });
 
+    useEffect(() => {
+      function handleScroll() {
+        if (ref.current) {
+          const { top } = ref.current.getBoundingClientRect();
+          if (top <= 0) {
+            setCurrentText(title!);
+          }
+        }
+        if (window.scrollY > 200) setIsScrollable(true);
+        else setIsScrollable(false);
+      }
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+      if (!isScrollable)
+        setCurrentText("Javascript-event-loop, Call-stack, Callback-queue.");
+    }, [isScrollable]);
+
     return (
-      <div>
+      <div className="relative py-16">
         <motion.div
-          className="relative"
           ref={ref}
           style={{
-            opacity: isInView ? 1 : 0,
             transform: isInView ? "translateX(0px)" : "translateX(-20px)",
             transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
           }}
@@ -29,7 +49,7 @@ const EventLoopsInJavascript = () => {
           <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
             {title}
           </h1>
-          <div className="lg:pr-[350px] text-sm md:text-base"> {section}</div>
+          <div className="lg:pr-[350px] text-sm lg:text-base"> {section}</div>
         </motion.div>
       </div>
     );
@@ -38,10 +58,17 @@ const EventLoopsInJavascript = () => {
     <div className="Merriweather relative">
       <div className="absolute top-0 lef-0 w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-0 left-0  w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
-      <section className="max-w-[1240px] mx-auto py-20 px-10 md:px-20">
-        <h1 className="text-xl md:text-2xl font-extrabold leading-8">
-          Javascript-event-loop, Call-stack, Callback-queue.
-        </h1>
+      <div className="fixed top-[450px] right-0  w-2/4 h-[150px] bg-white opacity-[8%] rounded-full blur-3xl pointer-events-none" />
+      <section className="max-w-[1240px] mx-auto pt-10 px-10 md:px-20">
+        <div
+          className={`${
+            isScrollable && "py-10 sticky top-0 left-0 bg-gray-900 z-10"
+          }`}
+        >
+          <h1 className="text-xl md:text-[30px] font-extrabold leading-14">
+            {currentText}
+          </h1>
+        </div>
         <div className="relative w-full">
           {events.map((event) => (
             <EventLoop
@@ -68,11 +95,11 @@ const events = [
     title: "",
     imageSources: { one: "", two: "" },
     section: (
-      <div>
-        <p className="text-sm font-bold">
+      <div className="leading-8">
+        <p className="font-bold">
           Note: Javascript by design is single threaded (single call stack).
         </p>
-        <div className="py-4 text-sm">
+        <div className="py-4">
           <p className="py-2">
             This simply means it can only execute one task at a time, and while
             doing that, it blocks other tasks from running.
@@ -108,42 +135,43 @@ const events = [
             Note Whenever any Javascript program is run, a global execution
             context is created which get pushed to the call stack.
           </p>
-          <div className="py-20">
-            <h2 className="text-lg md:text-2xl font-extrabold w-full pb-5">
-              Call Stack
-            </h2>
-            <p>
-              It manages the execution of our javascript programs. When we
-              invoke a function, an execution context is created and pushed into
-              the call stack. Because Stack is LIFO(Last In First Out)
-              structure, it's execute the topmost function and after execution
-              it's execution context is popped off the stack.
-            </p>
-            <p className="py-10">
-              So in simple terms,when a function is invoked, it's gets pushed
-              into the call stack, inside the stack, the function is executed
-              line by line and after execution, it's gets popped out of the
-              stack.
-            </p>
-            <p>
-              Because JS is single threaded, once a function is pushed into the
-              call stack, no other function can be pushed into the stack unless
-              the current function has finished execution and it's popped off
-              the stack.
-            </p>
-          </div>
         </div>
+      </div>
+    ),
+  },
+  {
+    id: 2,
+    title: "Call Stack",
+    section: (
+      <div className="leading-8">
+        <p>
+          It manages the execution of our javascript programs. When we invoke a
+          function, an execution context is created and pushed into the call
+          stack. Because Stack is LIFO(Last In First Out) structure, it's
+          execute the topmost function and after execution it's execution
+          context is popped off the stack.
+        </p>
+        <p className="py-10">
+          So in simple terms,when a function is invoked, it's gets pushed into
+          the call stack, inside the stack, the function is executed line by
+          line and after execution, it's gets popped out of the stack.
+        </p>
+        <p>
+          Because JS is single threaded, once a function is pushed into the call
+          stack, no other function can be pushed into the stack unless the
+          current function has finished execution and it's popped off the stack.
+        </p>
       </div>
     ),
   },
 
   {
-    id: 2,
+    id: 3,
     title: "Web API",
     imageSources: { one: "", two: "" },
     section: (
       <div>
-        <div className="pt-5 pb-20 leading-8">
+        <div className=" leading-8">
           <div>
             <p>
               So outside the call stack, we have our beautiful world of the
@@ -223,12 +251,12 @@ const events = [
   },
 
   {
-    id: 3,
+    id: 4,
     title: "Task Queue (Callback Queue)",
     imageSources: { one: "", two: "" },
     section: (
       <div>
-        <div className="pt-5 pb-20 leading-8">
+        <div className=" leading-8">
           <div>
             <p>
               Holds callbacks from completed asynchronous operations. For
@@ -245,12 +273,12 @@ const events = [
   },
 
   {
-    id: 4,
+    id: 5,
     title: "MicroTask Queue (Callback Queue)",
     imageSources: { one: "", two: "" },
     section: (
       <div>
-        <div className="pt-5 pb-20 leading-8">
+        <div className="leading-8">
           <div>
             <p>
               Holds callbacks from completed asynchronous operations. For

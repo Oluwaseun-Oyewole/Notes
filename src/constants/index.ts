@@ -1,5 +1,5 @@
 import JsBanner from "../assets/banner/js.jpeg";
-export const blogContent = [
+export const topics = [
   {
     id: 1,
     title: "Things to know for javascript developers",
