@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import closureExampleTwo from "../../../assets/close-example-two.jpeg";
 import closureExample from "../../../assets/closure-example.jpeg";
 import closure from "../../../assets/closure.jpeg";
 import lexical from "../../../assets/lexical.jpeg";
@@ -35,17 +35,13 @@ const Closure = () => {
     }, [isScrollable]);
 
     return (
-      <div className="relative py-8 lg:py-16">
-        <motion.div
-          ref={ref}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-        >
+      <div className="relative py-8 lg:py-10">
+        <div ref={ref}>
           <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
             {title}
           </h1>
           <div className="lg:pr-[350px] text-sm lg:text-base"> {section}</div>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -55,7 +51,7 @@ const Closure = () => {
       <div className="absolute top-0 left-0  w-3/4 h-[35px] bg-white opacity-10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed top-[450px] right-0  w-2/4 h-[150px] bg-white opacity-[8%] rounded-full blur-3xl pointer-events-none" />
       <div className="fixed top-[450px] right-0  w-2/4 h-[150px] bg-white opacity-[8%] rounded-full blur-3xl pointer-events-none" />
-      <section className="max-w-[1240px] mx-auto pt-10 px-10 md:px-20">
+      <section className="max-w-[1240px] mx-auto pt-10 xl:px-20">
         <div
           className={`${
             isScrollable && "py-6 md:py-10 sticky top-0 left-0 bg-gray-900 z-10"
@@ -154,7 +150,7 @@ const events = [
     ),
   },
   {
-    id: 1,
+    id: 2,
     title: "Some common examples of Closure",
     section: (
       <div className="leading-8">
@@ -162,13 +158,19 @@ const events = [
           <img
             src={closure}
             alt="closure"
-            className="w-[3000px] rounded-lg py-10"
+            className="md:w-[500px] xl:w-[800px] rounded-lg py-4 xl:py-10"
           />
 
           <img
             src={closureExample}
             alt="closure"
-            className="w-[3000px] rounded-lg py-10"
+            className="md:w-[500px] xl:w-[800px] rounded-lg py-4 xl:py-10"
+          />
+
+          <img
+            src={closureExampleTwo}
+            alt="closure"
+            className="md:w-[500px] xl:w-[800px] rounded-lg py-4 xl:py-10"
           />
         </div>
       </div>

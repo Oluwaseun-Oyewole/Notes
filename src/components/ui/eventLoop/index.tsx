@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import geolocation from "../../../assets/geoLocation.jpeg";
 import SyncPromise from "../../../assets/sycn-promise.jpeg";
@@ -36,16 +35,12 @@ const EventLoopsInJavascript = () => {
 
     return (
       <div className="relative py-8 lg:py-16">
-        <motion.div
-          ref={ref}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-        >
+        <div>
           <h1 className="text-lg md:text-2xl font-extrabold w-full pb-5">
             {title}
           </h1>
           <div className="lg:pr-[350px] text-sm lg:text-base"> {section}</div>
-        </motion.div>
+        </div>
       </div>
     );
   }
