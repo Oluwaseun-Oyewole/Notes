@@ -11,7 +11,7 @@ const Home = () => {
             return (
               <li
                 key={topic.id}
-                className="lg:border-2 border-gray-600 shadow-xl rounded-lg min-h-[400px] md:w-[420px] py-4 px-4 relative flex flex-col items-center justify-center"
+                className=" shadow-xl rounded-lg min-h-[400px] md:w-[400px] py-4 px-4 relative flex flex-col items-center justify-center"
               >
                 <Link to={urlEncoder(topic.title)}>
                   <img

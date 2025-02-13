@@ -26,7 +26,7 @@ const SubDetails = () => {
         return <JavascriptPromise />;
       case "Js-Engine-😡":
         return <JavascriptEngine />;
-      case "Hmmm-Closure":
+      case "Closure":
         return <Closure />;
       case "Javascript-Event-Loop":
         return <EventLoopsInJavascript />;

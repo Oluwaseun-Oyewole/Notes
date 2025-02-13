@@ -7,11 +7,11 @@ const BasicJsConcepts = () => {
   return (
     <div className="lg:flex Merriweather">
       <aside className="hidden lg:block lg:bg-gray-900 lg:basis-1/2 min-h-screen"></aside>
-      <motion.ul className="px-8 md:px-20 lg:px-0 w-full lg:basis-1/2 bg-[#FAF9F5] relative py-20 lg:py-70 h-screen">
+      <motion.ul className="px-8 md:px-20 lg:px-0 w-full lg:basis-1/2 bg-[#FAF9F5] relative py-20 lg:py-30 h-screen">
         {javascriptForDevs.map((tab) => (
           <motion.li
             key={tab.label}
-            className="relative font-bold text-black lg:text-[#FAF9F5] pb-10 md:pb-20 text-sm"
+            className="relative font-bold text-black lg:text-[#FAF9F5] pb-10 md:pb-14 text-sm"
             variants={liVariant}
           >
             <div className="text-xs lg:absolute lg:top-0 lg:right-[50vw] w-full lg:text-right lg:mr-20 flex items-center gap-2 lg:block">
@@ -51,5 +51,11 @@ const javascriptForDevs = [
     title: "PERSONAL NOTE",
     date: "2025-02-14",
     description: "Understanding JS Engine and the browser ",
+  },
+  {
+    label: "Closure",
+    title: "PERSONAL NOTE",
+    date: "2025-02-14",
+    description: "JavaScript Closure",
   },
 ];
