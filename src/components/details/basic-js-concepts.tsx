@@ -55,7 +55,19 @@ const javascriptForDevs = [
   {
     label: "Closure",
     title: "PERSONAL NOTE",
+    date: "2025-02-13",
+    description: "JavaScript Closure",
+  },
+  {
+    label: "Currying in JavaScript",
+    title: "PERSONAL NOTE",
     date: "2025-02-14",
     description: "JavaScript Closure",
+  },
+  {
+    label: "Basic JS Questions and Answers",
+    title: "PERSONAL NOTE",
+    date: "2025-02-14",
+    description: "Common JS Questions",
   },
 ];

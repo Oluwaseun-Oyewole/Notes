@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Closure from "../../components/ui/closure";
+import Currying from "../../components/ui/currying";
 import EventLoopsInJavascript from "../../components/ui/eventLoop";
 import JavascriptEngine from "../../components/ui/jsEngine";
+import BasicJsQuestions from "../../components/ui/JSQuestions";
 import JavascriptPromise from "../../components/ui/promise";
 
 const SubDetails = () => {
@@ -28,8 +30,12 @@ const SubDetails = () => {
         return <JavascriptEngine />;
       case "Closure":
         return <Closure />;
+      case "Currying":
+        return <Currying />;
       case "Javascript-Event-Loop":
         return <EventLoopsInJavascript />;
+      case "Basic-JS-Questions-and-Answers":
+        return <BasicJsQuestions />;
       default:
         return "details";
     }

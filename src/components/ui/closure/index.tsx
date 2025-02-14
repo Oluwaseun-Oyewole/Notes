@@ -7,6 +7,7 @@ import lexical from "../../../assets/lexical.jpeg";
 const Closure = () => {
   const [currentText, setCurrentText] = useState("");
   const [isScrollable, setIsScrollable] = useState(false);
+
   function Closure({
     section,
     title,
@@ -94,16 +95,30 @@ const events = [
               It simply means, the inner function (sibling) will remembers the
               outer function's (parent) variable even after it has returned.
             </p>
+
+            <p className="pt-2">
+              Closure allows us to have private functions in JavaScript
+            </p>
           </div>
 
           <div className="py-16" id="lexical">
-            <p>What is lexical Scope ?</p>
+            <h3>What is lexical Scope ?</h3>
+            <p className="py-6">
+              A scope is a reference to the current execution context of the
+              code which can be either globally or locally defined.
+            </p>
             <p>
               Lexical Scope in JavaScript is a concept that determines how
               variables and functions are accessed based on their position
               within the code structure.
             </p>
-            <p className="pt-6">
+            <p className="py-6">
+              Lexical scope means that a variable defined outside a function can
+              be accessible inside of another function defined after a variable
+              declaration.
+            </p>
+
+            <p>
               It is also known as static scoping, meaning the scope of a
               variable or function is determined by where it was defined, not
               where it was called(invoked). This is why inner functions can
