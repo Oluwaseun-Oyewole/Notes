@@ -20,7 +20,7 @@ const BasicJsConcepts = () => {
             </div>
             <Link to={`${urlEncoder(tab.label)}`}>
               <div className="lg:ml-20 text-black pt-1 lg:pt-0">
-                <p className="font-extrabold text-lg">{tab.label}</p>
+                <p className="font-extrabold text-base">{tab.label}</p>
                 <p className="pt-1 text-gray-500 pr-10">{tab?.description}</p>
               </div>
             </Link>
@@ -46,22 +46,16 @@ const javascriptForDevs = [
     date: "2025-02-12",
     description: "A personal note on Event loop, callback queue, call stack",
   },
-  {
-    label: "JavaScript Engine",
-    title: "PERSONAL NOTE",
-    date: "2025-02-14",
-    description: "Understanding JS Engine and the browser ",
-  },
+  // {
+  //   label: "JavaScript Engine",
+  //   title: "PERSONAL NOTE",
+  //   date: "2025-02-14",
+  //   description: "Understanding JS Engine and the browser ",
+  // },
   {
     label: "Closure",
     title: "PERSONAL NOTE",
     date: "2025-02-13",
-    description: "JavaScript Closure",
-  },
-  {
-    label: "Currying in JavaScript",
-    title: "PERSONAL NOTE",
-    date: "2025-02-14",
     description: "JavaScript Closure",
   },
   {

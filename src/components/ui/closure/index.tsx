@@ -114,8 +114,8 @@ const events = [
             </p>
             <p className="py-6">
               Lexical scope means that a variable defined outside a function can
-              be accessible inside of another function defined after a variable
-              declaration.
+              be accessible inside of another function after that function
+              returned.
             </p>
 
             <p>

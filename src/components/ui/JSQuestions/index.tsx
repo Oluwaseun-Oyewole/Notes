@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import functionExpression from "../../../assets/function-expression.jpeg";
 import hoisting from "../../../assets/hoisting.jpeg";
 import IIFE from "../../../assets/IIFE.jpeg";
+import thisExample from "../../../assets/this-example.jpeg";
 import thisImage from "../../../assets/this.jpeg";
 
 const BasicJSQuestions = () => {
@@ -139,7 +140,7 @@ const events = [
 
           <li>
             <div>
-              <h2> 2. What is hoisting ?.</h2>
+              <h2> 3. What is hoisting ?.</h2>
               <p className="pt-4">
                 Hoisting is moving variables and functions declarations to the
                 top of their scope. Hoisting can be for both variables and
@@ -151,9 +152,9 @@ const events = [
               </p>
               <p>
                 Variables declared with let and const are also hoisted, but they
-                remain in a "temporal dead zone" (TDZ) until they are
-                initialized. This means accessing them before declaration throws
-                an error
+                cannot be accessed until they are initialized. This means
+                accessing them before declaration throws an error (Reference
+                error).
               </p>
 
               <p className="pt-6">
@@ -167,17 +168,40 @@ const events = [
             </div>
           </li>
 
-          <li>
+          <li className="py-20">
             <div>
-              <h2> 3. What is "this" keyword in JavaScript ?.</h2>
+              <h2> 4. What is "this" keyword in JavaScript ?.</h2>
               <p className="pt-4">
                 It refers to the current execution context of a function. The
-                value depends on how an where the function is called.
+                value of "this" depends on how and where the function is called.
               </p>
 
               <div className="py-10">
                 <img src={thisImage} alt="this" />
               </div>
+
+              <div>
+                <p>Other example with explicit binding</p>
+                <div className="py-5">
+                  <img src={thisExample} alt="this" />
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div>
+              <h2> 5. What are pure functions in JavaScript ?.</h2>
+              <p className="pt-4">
+                The rules for pure functions are simple, given the same set of
+                inputs, the function should always return the same output.
+              </p>
+
+              <p className="pt-4">
+                And also function with no side effect. i.e not mutating of
+                external state whether it's primitive data type like Strings or
+                reference data type like Set.
+              </p>
             </div>
           </li>
         </ul>
